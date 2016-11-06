@@ -1,12 +1,12 @@
 /* jshint node: true */
 
 module.exports = function (environment) {
-  var ENV = {
+  'use strict';
+  const ENV = {
     modulePrefix: 'snapspot',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
-    apiHost: 'http://localhost:3000/',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -30,7 +30,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    var port = +('GA'.split('').reduce((p, c) =>
+    let port = +('GA'.split('').reduce((p, c) =>
       p + c.charCodeAt().toString(16), '')
     );
     ENV.apiHost = `http://localhost:${port}`;
@@ -49,9 +49,9 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.rootURL = '/';
+    ENV.rootURL = '/snapspot';
     ENV.locationType = 'hash';
-    ENV.apiHost = 'https://snapshot-app.herokuapp.com/'
+    ENV.apiHost = 'https://snapshot-app.herokuapp.com/';
   }
 
   return ENV;
