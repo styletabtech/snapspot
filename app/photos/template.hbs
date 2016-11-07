@@ -2,6 +2,6 @@
 
 <ul>
 {{#each model as |photo|}}
-{{photo-lib/my-photo photo=photo}}
+  {{photo-lib/my-photo photo=photo delete='deletePhoto'}}
 {{/each}}
 </ul>

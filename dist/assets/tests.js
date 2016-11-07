@@ -1853,7 +1853,7 @@ define('snapspot/tests/photo/route.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | photo/route.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'photo/route.js should pass jshint.');
+    assert.ok(false, 'photo/route.js should pass jshint.\nphoto/route.js: line 25, col 1, Unexpected \'}\'.\nphoto/route.js: line 25, col 1, Expected an identifier and instead saw \'}\'.\n\n2 errors');
   });
 });
 define('snapspot/tests/photos/route.jshint', ['exports'], function (exports) {

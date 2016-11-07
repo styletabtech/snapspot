@@ -17,9 +17,9 @@ export default Ember.Route.extend({
   //     let item = this.get('store').createRecord('item', newItem);
   //     item.save();
   // },
-  deletePhoto (photo) {
-    console.log('getting to destroyRecord');
-    photo.destroyRecord();
+  // deletePhoto (photo) {
+  //   console.log('getting to destroyRecord');
+  //   photo.destroyRecord();
   },
 },
 });

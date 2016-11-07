@@ -1215,6 +1215,7 @@ define("snapspot/components/password-input/template", ["exports"], function (exp
 });
 define('snapspot/components/photo-lib/component', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
+
     actions: {
 
       // createItem () {
@@ -1223,24 +1224,29 @@ define('snapspot/components/photo-lib/component', ['exports', 'ember'], function
       //   this.sendAction('createItem', newItem);
       //   this.set('form.text', null);
       // },
-      deletePhoto: function deletePhoto(photo) {
-        this.sendAction('deletePhoto', photo);
-        console.log('getting to deletePhoto in lib component');
-      }
+      // deletePhoto (photo) {
+      //   console.log(photo);
+      //   debugger;
+      //   this.sendAction('deletePhoto', photo);
+      //   console.log('getting to deletePhoto in lib component');
+      // },
+      // edit (list) {
+      //   this.sendAction('edit', list);
+      //
+      // }
     }
   });
 });
-// edit (list) {
-//   this.sendAction('edit', list);
-//
-// }
 define('snapspot/components/photo-lib/my-photo/component', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     tagName: 'li',
+
+    photo: {},
     actions: {
       'delete': function _delete() {
         console.log('getting to the delete action in my-photo component');
-        this.sendAction('deletePhoto', this.get('photo'));
+        console.log(this.get('photo'));
+        this.sendAction('delete', this.get('photo'));
       }
     }
   });
@@ -1273,9 +1279,7 @@ define("snapspot/components/photo-lib/my-photo/template", ["exports"], function 
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
-        var el1 = dom.createElement("a");
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createElement("img");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
@@ -1291,15 +1295,14 @@ define("snapspot/components/photo-lib/my-photo/template", ["exports"], function 
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [2]);
         var element1 = dom.childAt(fragment, [4]);
-        var morphs = new Array(4);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createAttrMorph(element0, 'href');
-        morphs[2] = dom.createMorphAt(element0, 0, 0);
-        morphs[3] = dom.createElementMorph(element1);
+        morphs[1] = dom.createAttrMorph(element0, 'src');
+        morphs[2] = dom.createElementMorph(element1);
         dom.insertBoundary(fragment, 0);
         return morphs;
       },
-      statements: [["content", "photo.file_name", ["loc", [null, [1, 0], [1, 19]]], 0, 0, 0, 0], ["attribute", "href", ["concat", [["get", "photo.photo_upload_url", ["loc", [null, [2, 11], [2, 33]]], 0, 0, 0, 0]], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "photo.photo_upload_url", ["loc", [null, [2, 37], [2, 63]]], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [3, 37], [3, 56]]], 0, 0]],
+      statements: [["content", "photo.file_name", ["loc", [null, [1, 0], [1, 19]]], 0, 0, 0, 0], ["attribute", "src", ["concat", [["get", "photo.photo_upload_url", ["loc", [null, [2, 12], [2, 34]]], 0, 0, 0, 0]], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [3, 37], [3, 56]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -1307,47 +1310,6 @@ define("snapspot/components/photo-lib/my-photo/template", ["exports"], function 
 });
 define("snapspot/components/photo-lib/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "revision": "Ember@2.8.3",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 2,
-              "column": 2
-            },
-            "end": {
-              "line": 5,
-              "column": 2
-            }
-          },
-          "moduleName": "snapspot/components/photo-lib/template.hbs"
-        },
-        isEmpty: false,
-        arity: 1,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("    ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
-          return morphs;
-        },
-        statements: [["inline", "photo-lib/my-photo", [], ["photo", ["subexpr", "@mut", [["get", "photo", ["loc", [null, [3, 31], [3, 36]]], 0, 0, 0, 0]], [], [], 0, 0], "deletePhoto", "deletePhoto"], ["loc", [null, [3, 4], [4, 52]]], 0, 0]],
-        locals: ["photo"],
-        templates: []
-      };
-    })();
     return {
       meta: {
         "revision": "Ember@2.8.3",
@@ -1370,11 +1332,7 @@ define("snapspot/components/photo-lib/template", ["exports"], function (exports)
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("ul");
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment(" <ul>\n{{#each photos.photo as |photo|}}\n    {{photo-lib/my-photo photo=photo\n                         delete='deletePhoto'}}\n  {{/each}}</ul> ");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
@@ -1384,14 +1342,12 @@ define("snapspot/components/photo-lib/template", ["exports"], function (exports)
         dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [0]), 1, 1);
-        return morphs;
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
       },
-      statements: [["block", "each", [["get", "photos.photo", ["loc", [null, [2, 10], [2, 22]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [2, 2], [5, 11]]]]],
+      statements: [],
       locals: [],
-      templates: [child0]
+      templates: []
     };
   })());
 });
@@ -1926,8 +1882,7 @@ define("snapspot/instance-initializers/ember-data", ["exports", "ember-data/-pri
 define('snapspot/photo/model', ['exports', 'ember-data'], function (exports, _emberData) {
   exports['default'] = _emberData['default'].Model.extend({
     file_name: _emberData['default'].attr('string'),
-    photo_upload_url: _emberData['default'].attr('string'),
-    photo: _emberData['default'].belongsTo('photo')
+    photo_upload_url: _emberData['default'].attr('string')
   });
 });
 define('snapspot/photo/route', ['exports', 'ember'], function (exports, _ember) {
@@ -1979,19 +1934,16 @@ define("snapspot/photo/template", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
+        var el1 = dom.createComment(" {{photo-lib photo=model\n            deletePhoto='deletePhoto'}} ");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        dom.insertBoundary(fragment, 0);
-        return morphs;
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
       },
-      statements: [["inline", "photo-lib", [], ["photo", ["subexpr", "@mut", [["get", "model", ["loc", [null, [1, 18], [1, 23]]], 0, 0, 0, 0]], [], [], 0, 0], "deletePhoto", "deletePhoto"], ["loc", [null, [1, 0], [2, 39]]], 0, 0]],
+      statements: [],
       locals: [],
       templates: []
     };
@@ -2001,8 +1953,17 @@ define('snapspot/photos/route', ['exports', 'ember'], function (exports, _ember)
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
       return this.get('store').findAll('photo');
-    }
+    },
 
+    actions: {
+      deletePhoto: function deletePhoto(data) {
+        var photo = data;
+        console.log('getting to destroyRecord');
+        console.log(photo);
+        photo.destroyRecord();
+        this.transitionTo('photos');
+      }
+    }
   });
 });
 define("snapspot/photos/template", ["exports"], function (exports) {
@@ -2030,6 +1991,8 @@ define("snapspot/photos/template", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -2038,11 +2001,10 @@ define("snapspot/photos/template", ["exports"], function (exports) {
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-          dom.insertBoundary(fragment, 0);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "photo-lib/my-photo", [], ["photo", ["subexpr", "@mut", [["get", "photo", ["loc", [null, [5, 27], [5, 32]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 0], [5, 34]]], 0, 0]],
+        statements: [["inline", "photo-lib/my-photo", [], ["photo", ["subexpr", "@mut", [["get", "photo", ["loc", [null, [5, 29], [5, 34]]], 0, 0, 0, 0]], [], [], 0, 0], "delete", "deletePhoto"], ["loc", [null, [5, 2], [5, 57]]], 0, 0]],
         locals: ["photo"],
         templates: []
       };
@@ -2410,7 +2372,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+2d95ce6c"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+fbf87dbb"});
 }
 
 /* jshint ignore:end */
