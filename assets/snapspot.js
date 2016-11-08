@@ -1105,6 +1105,103 @@ define("snapspot/components/navbar-header/template", ["exports"], function (expo
     };
   })());
 });
+define('snapspot/components/new-photo-form/component', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+
+    newPhoto: {}, // New photo object being constructed from the form
+
+    actions: {
+      create: function create() {
+        var newPhoto = new FormData(document.getElementById('new-photo-form'));
+        //  new FormData(Ember.$('#new-photo-form')); // Ember jQuery to find the form by it's id.
+        console.log('In create', newPhoto.photo_upload);
+        this.sendAction('create', newPhoto); // Grabs the newPhoto object which has been converted into FormData and sends it up to the route template
+        this.set('newPhoto', null); // Resets the newPhoto Object
+      }
+    }
+  });
+});
+define("snapspot/components/new-photo-form/template", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "revision": "Ember@2.8.3",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 9,
+            "column": 0
+          }
+        },
+        "moduleName": "snapspot/components/new-photo-form/template.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("form");
+        dom.setAttribute(el1, "enctype", "multipart/form-data");
+        dom.setAttribute(el1, "id", "new-photo-form");
+        var el2 = dom.createTextNode("\n  ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("fieldset");
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("legend");
+        var el4 = dom.createTextNode("Add A Photo");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("input");
+        dom.setAttribute(el3, "type", "text");
+        dom.setAttribute(el3, "class", "form-control");
+        dom.setAttribute(el3, "name", "photo[file_name]");
+        dom.setAttribute(el3, "placeholder", "Image Name");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("input");
+        dom.setAttribute(el3, "type", "file");
+        dom.setAttribute(el3, "name", "photo[photo_upload]");
+        dom.setAttribute(el3, "value", "Upload Photo");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("input");
+        dom.setAttribute(el3, "type", "submit");
+        dom.setAttribute(el3, "class", "btn btn-success");
+        dom.setAttribute(el3, "name", "submit");
+        dom.setAttribute(el3, "value", "Add Photo");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var element0 = dom.childAt(fragment, [0]);
+        var morphs = new Array(1);
+        morphs[0] = dom.createElementMorph(element0);
+        return morphs;
+      },
+      statements: [["element", "action", ["create"], ["on", "submit"], ["loc", [null, [1, 56], [1, 89]]], 0, 0]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define('snapspot/components/password-confirmation-input/component', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     tagName: 'div',
@@ -1879,6 +1976,73 @@ define("snapspot/instance-initializers/ember-data", ["exports", "ember-data/-pri
     initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
   };
 });
+define('snapspot/new-photo/route', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    uploads: _ember['default'].inject.service(),
+
+    actions: {
+      createPhoto: function createPhoto(newPhoto) {
+        var _this = this;
+
+        //  console.log('newPhoto is', newPhoto); // We can console log the newPhoto object to ensure it is being passed through
+        // console.log('uploads is', this.get('uploads'));
+        // console.log('newPhoto is', newPhoto);
+        console.log('newPhoto upload is', newPhoto.photo_upload);
+        console.log('newPhoto file_name is', newPhoto.file_name);
+        // console.log('newPhoto is', newPhoto.get('photo_upload_url'));
+        return this.get('uploads').newPhotoUpload(newPhoto) // This will use the uploads service, which gives us access to the `newPhotoUpload` function.
+        .then(function () {
+          return _this.transitionTo('photos');
+        }) // Once the upload is successful, we will transition to our list of photos and if all worked, we should see the newly created photo
+        ['catch'](function (error) {
+          return console.error(error);
+        });
+      }
+    }
+  });
+});
+define("snapspot/new-photo/template", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    return {
+      meta: {
+        "revision": "Ember@2.8.3",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 0
+          }
+        },
+        "moduleName": "snapspot/new-photo/template.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
+        return morphs;
+      },
+      statements: [["inline", "new-photo-form", [], ["create", "createPhoto"], ["loc", [null, [1, 0], [1, 39]]], 0, 0]],
+      locals: [],
+      templates: []
+    };
+  })());
+});
 define('snapspot/photo/model', ['exports', 'ember-data'], function (exports, _emberData) {
   exports['default'] = _emberData['default'].Model.extend({
     file_name: _emberData['default'].attr('string'),
@@ -1889,27 +2053,27 @@ define('snapspot/photo/route', ['exports', 'ember'], function (exports, _ember) 
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
       return this.get('store').findRecord('photo', params.photo_id);
-    },
-
-    actions: {
-      // edit () {
-      //   this.transitionTo('list.edit');
-      // },
-      // toggleItemDone (item) {
-      //     item.toggleProperty('done');
-      //     item.save();
-      // },
-      // createItem (newItem) {
-      //     let item = this.get('store').createRecord('item', newItem);
-      //     item.save();
-      // },
-      deletePhoto: function deletePhoto(photo) {
-        console.log('getting to destroyRecord');
-        photo.destroyRecord();
-      }
     }
+
   });
 });
+//   actions: {
+//   // edit () {
+//   //   this.transitionTo('list.edit');
+//   // },
+//   // toggleItemDone (item) {
+//   //     item.toggleProperty('done');
+//   //     item.save();
+//   // },
+//   // createItem (newItem) {
+//   //     let item = this.get('store').createRecord('item', newItem);
+//   //     item.save();
+//   // },
+//   // deletePhoto (photo) {
+//   //   console.log('getting to destroyRecord');
+//   //   photo.destroyRecord();
+//   },
+// },
 define("snapspot/photo/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -1969,6 +2133,41 @@ define('snapspot/photos/route', ['exports', 'ember'], function (exports, _ember)
 define("snapspot/photos/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.3",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 1,
+              "column": 19
+            },
+            "end": {
+              "line": 1,
+              "column": 52
+            }
+          },
+          "moduleName": "snapspot/photos/template.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("Add Photo");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
+        },
+        statements: [],
+        locals: [],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
       return {
         meta: {
           "revision": "Ember@2.8.3",
@@ -2035,6 +2234,10 @@ define("snapspot/photos/template", ["exports"], function (exports) {
         var el2 = dom.createTextNode("My Photos");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode(" ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("ul");
@@ -2048,13 +2251,14 @@ define("snapspot/photos/template", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(fragment, 2, 2, contextualElement);
+        morphs[1] = dom.createMorphAt(dom.childAt(fragment, [4]), 1, 1);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model", ["loc", [null, [4, 8], [4, 13]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [4, 0], [6, 9]]]]],
+      statements: [["block", "link-to", ["new-photo"], [], 0, null, ["loc", [null, [1, 19], [1, 64]]]], ["block", "each", [["get", "model", ["loc", [null, [4, 8], [4, 13]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [4, 0], [6, 9]]]]],
       locals: [],
-      templates: [child0]
+      templates: [child0, child1]
     };
   })());
 });
@@ -2074,6 +2278,7 @@ define('snapspot/router', ['exports', 'ember', 'snapspot/config/environment'], f
     this.route('users');
     this.route('photos');
     this.route('photo', { path: '/photos/:photo_id' });
+    this.route('new-photo');
   });
 
   exports['default'] = Router;
@@ -2230,6 +2435,20 @@ define("snapspot/sign-up/template", ["exports"], function (exports) {
     };
   })());
 });
+define('snapspot/uploads/service', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Service.extend({
+    ajax: _ember['default'].inject.service(),
+
+    newPhotoUpload: function newPhotoUpload(newPhoto) {
+      console.log('newPhoto in service is', newPhoto);
+      return this.get('ajax').post('/photos', { // This will use the ajax service and allow us to send a post request to the `/photos` route on in API
+        data: newPhoto, // The FormData object which we have called `newPhoto`
+        contentType: false,
+        processData: false
+      });
+    }
+  });
+});
 define('snapspot/user/model', ['exports', 'ember-data'], function (exports, _emberData) {
   exports['default'] = _emberData['default'].Model.extend({
     email: _emberData['default'].attr('string')
@@ -2372,11 +2591,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-<<<<<<< HEAD
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+2d95ce6c"});
-=======
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+fbf87dbb"});
->>>>>>> homepage
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+69cb2a14"});
 }
 
 /* jshint ignore:end */
