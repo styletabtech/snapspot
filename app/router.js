@@ -13,6 +13,13 @@ Router.map(function () {
   this.route('photos');
   this.route('photo', { path: '/photos/:photo_id' });
   this.route('new-photo');
+  this.route('spots');
+  this.route('spot', { path: '/spots/:spot_id' }, function() {
+    this.route('edit');
+  });
+  this.route('uploads');
+  this.route('upload', { path: '/uploads/:upload_id'});
+  this.route('user', { path: '/users/:user_id' });
 });
 
 export default Router;

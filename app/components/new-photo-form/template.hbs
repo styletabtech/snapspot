@@ -1,8 +1,9 @@
 <form enctype="multipart/form-data" id="new-photo-form" {{ action 'create' on='submit' }}>
   <fieldset>
     <legend>Add A Photo</legend>
-    <input type="text" class="form-control" name="photo[file_name]" placeholder="Image Name">
+    <!-- <input type="text" class="form-control" name="photo[file_name]" placeholder="Image Name"> -->
     <input type="file" name="photo[photo_upload]" value="Upload Photo">
+    <input type="hidden" name="photo[spot_id]" value="{{spot.id}}">
     <input type="submit" class="btn btn-success" name="submit" value="Add Photo">
   </fieldset>
 </form>
