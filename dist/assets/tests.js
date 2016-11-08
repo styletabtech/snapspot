@@ -117,6 +117,15 @@ define('snapspot/tests/components/navbar-header/component.jshint', ['exports'], 
     assert.ok(true, 'components/navbar-header/component.js should pass jshint.');
   });
 });
+define('snapspot/tests/components/new-photo-form/component.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | components/new-photo-form/component.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/new-photo-form/component.js should pass jshint.');
+  });
+});
 define('snapspot/tests/components/password-confirmation-input/component.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -1138,6 +1147,146 @@ define('snapspot/tests/integration/components/navbar-header/component-test.jshin
     assert.ok(true, 'integration/components/navbar-header/component-test.js should pass jshint.');
   });
 });
+define('snapspot/tests/integration/components/new-photo-form/component-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('new-photo-form', 'Integration | Component | new photo form', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template((function () {
+      return {
+        meta: {
+          'revision': 'Ember@2.8.3',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 1,
+              'column': 18
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [['content', 'new-photo-form', ['loc', [null, [1, 0], [1, 18]]], 0, 0, 0, 0]],
+        locals: [],
+        templates: []
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template((function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            'revision': 'Ember@2.8.3',
+            'loc': {
+              'source': null,
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 4,
+                'column': 4
+              }
+            }
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode('      template block text\n');
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+
+      return {
+        meta: {
+          'revision': 'Ember@2.8.3',
+          'loc': {
+            'source': null,
+            'start': {
+              'line': 1,
+              'column': 0
+            },
+            'end': {
+              'line': 5,
+              'column': 2
+            }
+          }
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode('\n');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment('');
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode('  ');
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [['block', 'new-photo-form', [], [], 0, null, ['loc', [null, [2, 4], [4, 23]]]]],
+        locals: [],
+        templates: [child0]
+      };
+    })()));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('snapspot/tests/integration/components/new-photo-form/component-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | integration/components/new-photo-form/component-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/new-photo-form/component-test.js should pass jshint.');
+  });
+});
 define('snapspot/tests/integration/components/password-confirmation-input/component-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('password-confirmation-input', 'Integration | Component | password confirmation input', {
@@ -1838,6 +1987,15 @@ define('snapspot/tests/integration/components/sign-up-form/component-test.jshint
     assert.ok(true, 'integration/components/sign-up-form/component-test.js should pass jshint.');
   });
 });
+define('snapspot/tests/new-photo/route.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | new-photo/route.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'new-photo/route.js should pass jshint.');
+  });
+});
 define('snapspot/tests/photo/model.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -1853,7 +2011,7 @@ define('snapspot/tests/photo/route.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | photo/route.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'photo/route.js should pass jshint.\nphoto/route.js: line 25, col 1, Unexpected \'}\'.\nphoto/route.js: line 25, col 1, Expected an identifier and instead saw \'}\'.\n\n2 errors');
+    assert.ok(true, 'photo/route.js should pass jshint.');
   });
 });
 define('snapspot/tests/photos/route.jshint', ['exports'], function (exports) {
@@ -2191,6 +2349,27 @@ define('snapspot/tests/unit/initializers/text-field-test.jshint', ['exports'], f
     assert.ok(true, 'unit/initializers/text-field-test.js should pass jshint.');
   });
 });
+define('snapspot/tests/unit/new-photo/route-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:new-photo', 'Unit | Route | new photo', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('snapspot/tests/unit/new-photo/route-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/new-photo/route-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/new-photo/route-test.js should pass jshint.');
+  });
+});
 define('snapspot/tests/unit/photo/model-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForModel)('photo', 'Unit | Model | photo', {
@@ -2234,6 +2413,28 @@ define('snapspot/tests/unit/photo/route-test.jshint', ['exports'], function (exp
     assert.ok(true, 'unit/photo/route-test.js should pass jshint.');
   });
 });
+define('snapspot/tests/unit/photo/uploads/service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:photo/uploads', 'Unit | Service | photo/uploads', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
+  });
+});
+define('snapspot/tests/unit/photo/uploads/service-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/photo/uploads/service-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/photo/uploads/service-test.js should pass jshint.');
+  });
+});
 define('snapspot/tests/unit/photos/route-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:photos', 'Unit | Route | photos', {
@@ -2253,6 +2454,28 @@ define('snapspot/tests/unit/photos/route-test.jshint', ['exports'], function (ex
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/photos/route-test.js should pass jshint.');
+  });
+});
+define('snapspot/tests/unit/photos/uploads/service-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:photos/uploads', 'Unit | Service | photos/uploads', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
+  });
+});
+define('snapspot/tests/unit/photos/uploads/service-test.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/photos/uploads/service-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/photos/uploads/service-test.js should pass jshint.');
   });
 });
 define('snapspot/tests/unit/sign-in/route-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -2339,6 +2562,15 @@ define('snapspot/tests/unit/users/route-test.jshint', ['exports'], function (exp
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/users/route-test.js should pass jshint.');
+  });
+});
+define('snapspot/tests/uploads/service.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | uploads/service.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'uploads/service.js should pass jshint.');
   });
 });
 define('snapspot/tests/user/model.jshint', ['exports'], function (exports) {
