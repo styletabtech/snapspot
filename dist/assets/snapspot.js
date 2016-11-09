@@ -2720,18 +2720,21 @@ define("snapspot/spot/edit/template", ["exports"], function (exports) {
     };
   })());
 });
-define('snapspot/spot/model', ['exports', 'ember-data'], function (exports, _emberData) {
-  exports['default'] = _emberData['default'].Model.extend({
-    name: _emberData['default'].attr('string'),
-    address: _emberData['default'].attr('string'),
-    city: _emberData['default'].attr('string'),
-    state: _emberData['default'].attr('string'),
-    zip: _emberData['default'].attr('string'),
-    description: _emberData['default'].attr('string'),
-    tag: _emberData['default'].attr('string'),
-    photos: _emberData['default'].hasMany('photo')
+define('snapspot/spot/model', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
+  exports['default'] = _emberDataModel['default'].extend({
+    user: (0, _emberDataRelationships.belongsTo)('user'),
+    name: (0, _emberDataAttr['default'])('string'),
+    address: (0, _emberDataAttr['default'])('string'),
+    city: (0, _emberDataAttr['default'])('string'),
+    state: (0, _emberDataAttr['default'])('string'),
+    zip: (0, _emberDataAttr['default'])('string'),
+    description: (0, _emberDataAttr['default'])('string'),
+    tag: (0, _emberDataAttr['default'])('string'),
+    photos: (0, _emberDataRelationships.hasMany)('photo'),
+    uploads: (0, _emberDataRelationships.hasMany)('upload')
   });
 });
+// import DS from 'ember-data';
 define('snapspot/spot/route', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
@@ -2741,6 +2744,48 @@ define('snapspot/spot/route', ['exports', 'ember'], function (exports, _ember) {
 });
 define("snapspot/spot/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.3",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 4,
+              "column": 0
+            },
+            "end": {
+              "line": 6,
+              "column": 0
+            }
+          },
+          "moduleName": "snapspot/spot/template.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("img");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1]);
+          var morphs = new Array(1);
+          morphs[0] = dom.createAttrMorph(element0, 'src');
+          return morphs;
+        },
+        statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [5, 13], [5, 29]]], 0, 0, 0, 0], 0, 0, 0, 0]],
+        locals: ["upload"],
+        templates: []
+      };
+    })();
     return {
       meta: {
         "revision": "Ember@2.8.3",
@@ -2751,7 +2796,7 @@ define("snapspot/spot/template", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 7,
             "column": 0
           }
         },
@@ -2763,180 +2808,11 @@ define("snapspot/spot/template", ["exports"], function (exports) {
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
+        var el1 = dom.createComment(" {{spots-gallery/single-spot spot=model }} ");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
-        return el0;
-      },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(1);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        dom.insertBoundary(fragment, 0);
-        return morphs;
-      },
-      statements: [["inline", "spots-gallery/single-spot", [], ["spot", ["subexpr", "@mut", [["get", "model", ["loc", [null, [1, 33], [1, 38]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [1, 0], [1, 41]]], 0, 0]],
-      locals: [],
-      templates: []
-    };
-  })());
-});
-define('snapspot/spots/route', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({
-    model: function model() {
-      return this.get('store').findAll('spot');
-    }
-  });
-});
-define("snapspot/spots/template", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template((function () {
-    var child0 = (function () {
-      return {
-        meta: {
-          "revision": "Ember@2.8.3",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 2,
-              "column": 37
-            },
-            "end": {
-              "line": 2,
-              "column": 71
-            }
-          },
-          "moduleName": "snapspot/spots/template.hbs"
-        },
-        isEmpty: false,
-        arity: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Add A Spot");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes() {
-          return [];
-        },
-        statements: [],
-        locals: [],
-        templates: []
-      };
-    })();
-    var child1 = (function () {
-      var child0 = (function () {
-        return {
-          meta: {
-            "revision": "Ember@2.8.3",
-            "loc": {
-              "source": null,
-              "start": {
-                "line": 4,
-                "column": 2
-              },
-              "end": {
-                "line": 6,
-                "column": 2
-              }
-            },
-            "moduleName": "snapspot/spots/template.hbs"
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("    ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("ul");
-            var el2 = dom.createComment("");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-            var morphs = new Array(1);
-            morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
-            return morphs;
-          },
-          statements: [["content", "spot.name", ["loc", [null, [5, 8], [5, 21]]], 0, 0, 0, 0]],
-          locals: [],
-          templates: []
-        };
-      })();
-      return {
-        meta: {
-          "revision": "Ember@2.8.3",
-          "loc": {
-            "source": null,
-            "start": {
-              "line": 3,
-              "column": 0
-            },
-            "end": {
-              "line": 7,
-              "column": 0
-            }
-          },
-          "moduleName": "snapspot/spots/template.hbs"
-        },
-        isEmpty: false,
-        arity: 1,
-        cachedFragment: null,
-        hasRendered: false,
-        buildFragment: function buildFragment(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-          dom.insertBoundary(fragment, 0);
-          dom.insertBoundary(fragment, null);
-          return morphs;
-        },
-        statements: [["block", "link-to", ["spot", ["get", "spot", ["loc", [null, [4, 20], [4, 24]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [4, 2], [6, 14]]]]],
-        locals: ["spot"],
-        templates: [child0]
-      };
-    })();
-    return {
-      meta: {
-        "revision": "Ember@2.8.3",
-        "loc": {
-          "source": null,
-          "start": {
-            "line": 1,
-            "column": 0
-          },
-          "end": {
-            "line": 8,
-            "column": 0
-          }
-        },
-        "moduleName": "snapspot/spots/template.hbs"
-      },
-      isEmpty: false,
-      arity: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      buildFragment: function buildFragment(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("h2");
-        var el2 = dom.createTextNode("Spots");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("button");
-        dom.setAttribute(el1, "class", "btn btn-xs btn-fancy");
+        var el1 = dom.createElement("h4");
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
@@ -2953,9 +2829,163 @@ define("snapspot/spots/template", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "link-to", ["new-photo"], [], 0, null, ["loc", [null, [2, 37], [2, 83]]]], ["block", "each", [["get", "model", ["loc", [null, [3, 8], [3, 13]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [3, 0], [7, 9]]]]],
+      statements: [["content", "model.name", ["loc", [null, [3, 4], [3, 18]]], 0, 0, 0, 0], ["block", "each", [["get", "model.uploads", ["loc", [null, [4, 8], [4, 21]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [4, 0], [6, 9]]]]],
       locals: [],
-      templates: [child0, child1]
+      templates: [child0]
+    };
+  })());
+});
+define('snapspot/spots/route', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model() {
+      return this.get('store').findAll('spot');
+    }
+  });
+});
+define("snapspot/spots/template", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            "revision": "Ember@2.8.3",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 15,
+                "column": 4
+              },
+              "end": {
+                "line": 17,
+                "column": 4
+              }
+            },
+            "moduleName": "snapspot/spots/template.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("      ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+            return morphs;
+          },
+          statements: [["content", "spot.name", ["loc", [null, [16, 6], [16, 19]]], 0, 0, 0, 0]],
+          locals: [],
+          templates: []
+        };
+      })();
+      return {
+        meta: {
+          "revision": "Ember@2.8.3",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 13,
+              "column": 0
+            },
+            "end": {
+              "line": 19,
+              "column": 0
+            }
+          },
+          "moduleName": "snapspot/spots/template.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("    ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("p");
+          var el2 = dom.createTextNode("\n");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("    ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
+          return morphs;
+        },
+        statements: [["block", "link-to", ["spot", ["get", "spot", ["loc", [null, [15, 22], [15, 26]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [15, 4], [17, 16]]]]],
+        locals: ["spot"],
+        templates: [child0]
+      };
+    })();
+    return {
+      meta: {
+        "revision": "Ember@2.8.3",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 0
+          }
+        },
+        "moduleName": "snapspot/spots/template.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment(" <h2>Spots</h2>\n<button class=\"btn btn-xs btn-fancy\">{{#link-to 'new-photo'}}Add A Spot{{/link-to}}</button>\n{{#each model as |spot|}}\n  {{#link-to 'spot' spot}}\n    <ul>{{spot.name}}</ul>\n  {{/link-to}}\n{{/each}} ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("h2");
+        var el2 = dom.createTextNode("Spots");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("ul");
+        var el2 = dom.createTextNode("\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment(" <ul>\n{{#each model as |spot|}}\n  {{#each spot.uploads as |upload|}}\n    <p>\n      {{spot.name}}\n      <img src={{upload.image_url}}>\n    </p>\n  {{/each}}\n{{/each}}</ul> ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(dom.childAt(fragment, [4]), 1, 1);
+        return morphs;
+      },
+      statements: [["block", "each", [["get", "model", ["loc", [null, [13, 8], [13, 13]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [13, 0], [19, 9]]]]],
+      locals: [],
+      templates: [child0]
     };
   })());
 });
@@ -3069,7 +3099,8 @@ define('snapspot/user/model', ['exports', 'ember-data/model', 'ember-data/attr',
 
   exports['default'] = _emberDataModel['default'].extend({
     email: (0, _emberDataAttr['default'])('string'),
-    uploads: (0, _emberDataRelationships.hasMany)('upload')
+    uploads: (0, _emberDataRelationships.hasMany)('upload'),
+    spots: (0, _emberDataRelationships.hasMany)('spot')
   });
 });
 define('snapspot/user/route', ['exports', 'ember'], function (exports, _ember) {
@@ -3088,11 +3119,11 @@ define("snapspot/user/template", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 3,
+              "line": 5,
               "column": 0
             },
             "end": {
-              "line": 5,
+              "line": 7,
               "column": 0
             }
           },
@@ -3118,8 +3149,49 @@ define("snapspot/user/template", ["exports"], function (exports) {
           morphs[0] = dom.createAttrMorph(element0, 'src');
           return morphs;
         },
-        statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [4, 13], [4, 29]]], 0, 0, 0, 0], 0, 0, 0, 0]],
+        statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [6, 13], [6, 29]]], 0, 0, 0, 0], 0, 0, 0, 0]],
         locals: ["upload"],
+        templates: []
+      };
+    })();
+    var child1 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.3",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 10,
+              "column": 0
+            },
+            "end": {
+              "line": 12,
+              "column": 0
+            }
+          },
+          "moduleName": "snapspot/user/template.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+          return morphs;
+        },
+        statements: [["content", "spot.name", ["loc", [null, [11, 2], [11, 15]]], 0, 0, 0, 0]],
+        locals: ["spot"],
         templates: []
       };
     })();
@@ -3133,7 +3205,7 @@ define("snapspot/user/template", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 6,
+            "line": 13,
             "column": 0
           }
         },
@@ -3153,6 +3225,22 @@ define("snapspot/user/template", ["exports"], function (exports) {
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("h4");
+        var el2 = dom.createTextNode("Photo Library");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("h4");
+        var el2 = dom.createTextNode("Your Spots");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
@@ -3160,15 +3248,16 @@ define("snapspot/user/template", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var morphs = new Array(2);
+        var morphs = new Array(3);
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
-        morphs[1] = dom.createMorphAt(fragment, 3, 3, contextualElement);
+        morphs[1] = dom.createMorphAt(fragment, 5, 5, contextualElement);
+        morphs[2] = dom.createMorphAt(fragment, 9, 9, contextualElement);
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["content", "model.email", ["loc", [null, [2, 13], [2, 28]]], 0, 0, 0, 0], ["block", "each", [["get", "model.uploads", ["loc", [null, [3, 8], [3, 21]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [3, 0], [5, 9]]]]],
+      statements: [["content", "model.email", ["loc", [null, [2, 13], [2, 28]]], 0, 0, 0, 0], ["block", "each", [["get", "model.uploads", ["loc", [null, [5, 8], [5, 21]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [5, 0], [7, 9]]]], ["block", "each", [["get", "model.spots", ["loc", [null, [10, 8], [10, 19]]], 0, 0, 0, 0]], [], 1, null, ["loc", [null, [10, 0], [12, 9]]]]],
       locals: [],
-      templates: [child0]
+      templates: [child0, child1]
     };
   })());
 });
@@ -3193,7 +3282,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
                 "column": 2
               },
               "end": {
-                "line": 11,
+                "line": 10,
                 "column": 2
               }
             },
@@ -3205,7 +3294,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("    test\n    ");
+            var el1 = dom.createTextNode("    ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("p");
             var el2 = dom.createTextNode("\n      ");
@@ -3225,7 +3314,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
             morphs[0] = dom.createAttrMorph(element0, 'src');
             return morphs;
           },
-          statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [9, 17], [9, 33]]], 0, 0, 0, 0], 0, 0, 0, 0]],
+          statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [8, 17], [8, 33]]], 0, 0, 0, 0], 0, 0, 0, 0]],
           locals: ["upload"],
           templates: []
         };
@@ -3240,7 +3329,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
               "column": 0
             },
             "end": {
-              "line": 12,
+              "line": 11,
               "column": 0
             }
           },
@@ -3271,7 +3360,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [["content", "user.email", ["loc", [null, [5, 6], [5, 20]]], 0, 0, 0, 0], ["block", "each", [["get", "user.uploads", ["loc", [null, [6, 10], [6, 22]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [6, 2], [11, 11]]]]],
+        statements: [["content", "user.email", ["loc", [null, [5, 6], [5, 20]]], 0, 0, 0, 0], ["block", "each", [["get", "user.uploads", ["loc", [null, [6, 10], [6, 22]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [6, 2], [10, 11]]]]],
         locals: ["user"],
         templates: [child0]
       };
@@ -3286,7 +3375,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 14,
+            "line": 13,
             "column": 0
           }
         },
@@ -3319,7 +3408,7 @@ define("snapspot/users/template", ["exports"], function (exports) {
         morphs[0] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model", ["loc", [null, [4, 8], [4, 13]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [4, 0], [12, 9]]]]],
+      statements: [["block", "each", [["get", "model", ["loc", [null, [4, 8], [4, 13]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [4, 0], [11, 9]]]]],
       locals: [],
       templates: [child0]
     };
@@ -3361,7 +3450,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+c87cedd2"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+05735e51"});
 }
 
 /* jshint ignore:end */
