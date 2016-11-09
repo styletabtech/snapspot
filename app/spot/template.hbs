@@ -1,1 +1,6 @@
-{{spots-gallery/single-spot spot=model }}
+<!-- {{spots-gallery/single-spot spot=model }} -->
+
+<h4>{{model.name}}</h4>
+{{#each model.uploads as |upload|}}
+  <img src={{upload.image_url}}>
+{{/each}}

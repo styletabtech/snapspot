@@ -1,5 +1,12 @@
 
 <h2> Welcome {{model.email}}</h2>
+
+<h4>Photo Library</h4>
 {{#each model.uploads as |upload|}}
   <img src={{upload.image_url}}>
+{{/each}}
+
+<h4>Your Spots</h4>
+{{#each model.spots as |spot|}}
+  {{spot.name}}
 {{/each}}
