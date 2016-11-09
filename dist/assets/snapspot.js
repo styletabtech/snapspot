@@ -3361,7 +3361,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+c87cedd2"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+05735e51"});
 }
 
 /* jshint ignore:end */
