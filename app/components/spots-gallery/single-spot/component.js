@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  isAuthenticated: Ember.computed.alias('auth.isAuthenticated')
+
   tagName: 'p',
 
   upload: {},
