@@ -9,4 +9,5 @@ export default Model.extend({
   image_url: attr('string'),
   spots: hasMany('spot'),
   photos: hasMany('photo'),
+  editable: attr('boolean'),
 });

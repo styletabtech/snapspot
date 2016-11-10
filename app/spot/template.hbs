@@ -18,6 +18,8 @@
   </button>
 {{/each}} -->
 
+{{spots-gallery spot=model}}
+
 <ul>
 {{#each model.uploads as |upload|}}
   {{spots-gallery/single-spot upload=upload delete='deleteUpload'}}
