@@ -6,5 +6,6 @@ import { hasMany } from 'ember-data/relationships';
 export default Model.extend({
   email: attr('string'),
   uploads: hasMany('upload'),
-  spots: hasMany('spot')
+  spots: hasMany('spot'),
+  photos: hasMany('photo'),
 });

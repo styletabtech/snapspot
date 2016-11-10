@@ -1,6 +1,30 @@
 <!-- {{spots-gallery/single-spot spot=model }} -->
+<h2>{{model.name}}</h2>
+<h5>{{model.description}}</h5>
+{{model.address}}
+{{model.city}}
+{{model.state}}
+{{model.zip}}
+<!-- {{spot.tag}}  -->
+< br/>< br/>
 
-<h4>{{model.name}}</h4>
+{{#link-to 'spot-photo-upload' model}}Add Your Photo{{/link-to}} < br/>
+
+{{#link-to 'spots'}}Back to spots{{/link-to}}
+
+< br/>< br/>
+
+  <!-- <img src={{upload.image_url}}> -->
+
+<!-- {{#each model.uploads as |upload|}}
+
+  <img src={{upload.image_url}}><button class="btn btn-xs btn-fancy" {{action 'delete' upload}}>
+    Delete
+  </button>
+{{/each}} -->
+
+<ul>
 {{#each model.uploads as |upload|}}
-  <img src={{upload.image_url}}>
+  {{spots-gallery/single-spot upload=upload delete='deleteUpload'}}
 {{/each}}
+</ul>

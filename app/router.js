@@ -20,6 +20,8 @@ Router.map(function () {
   this.route('uploads');
   this.route('upload', { path: '/uploads/:upload_id'});
   this.route('user', { path: '/users/:user_id' });
+  this.route('new-upload');
+  this.route('spot-photo-upload', { path: '/spots/:spot_id/upload'});
 });
 
 export default Router;
