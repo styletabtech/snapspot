@@ -1756,7 +1756,7 @@ define('snapspot/components/spots-gallery/single-spot/component', ['exports', 'e
       'delete': function _delete() {
         console.log('getting to the delete action in component');
         console.log(this.get('upload'));
-        this.sendAction('delete', this.get('upload'));
+        this.sendAction('delete', this.get('spot'));
       }
     }
   });
@@ -1773,7 +1773,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
             "column": 0
           },
           "end": {
-            "line": 16,
+            "line": 15,
             "column": 0
           }
         },
@@ -1791,7 +1791,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("img");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n ");
+        var el1 = dom.createTextNode("\n ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("button");
         dom.setAttribute(el1, "class", "btn btn-xs btn-fancy");
@@ -1810,7 +1810,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         morphs[1] = dom.createElementMorph(element1);
         return morphs;
       },
-      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [11, 12], [11, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [13, 38], [13, 57]]], 0, 0]],
+      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [11, 12], [11, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [12, 38], [12, 57]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -1904,7 +1904,39 @@ define("snapspot/index/template", ["exports"], function (exports) {
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
-        var el1 = dom.createComment(" <section>Boston</section>\n<section>NYC</section>\n<section>DC</section>\n<section>Miami</section>\n<section>LA</section>\n<section>Chicago</section> ");
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("Boston");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("NYC");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("DC");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("Miami");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("LA");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("section");
+        var el2 = dom.createTextNode("Chicago");
+        dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
@@ -2311,7 +2343,9 @@ define("snapspot/new-upload/template", ["exports"], function (exports) {
 });
 define('snapspot/photo/model', ['exports', 'ember-data'], function (exports, _emberData) {
   exports['default'] = _emberData['default'].Model.extend({
-
+    // file_name: DS.attr('string'),
+    // photo_upload_url: DS.attr('string'),
+    // spot: DS.belongsTo('spot'),
     user: _emberData['default'].belongsTo('user', {
       inverse: 'photos'
     }),
@@ -2874,24 +2908,14 @@ define('snapspot/spot/route', ['exports', 'ember'], function (exports, _ember) {
     },
 
     actions: {
-      deleteUpload: function deleteUpload(data) {
-        var upload = data;
-        console.log('getting to destroyRecord');
-        console.log(upload);
-        upload.destroyRecord();
-        this.refresh();
+      'delete': function _delete() {
+        console.log('getting to the delete action in spot');
+        console.log('uploads is', this.get('upload'));
+        this.sendAction('delete', this.get('upload'));
       }
     }
   });
 });
-//
-// actions: {
-//   deleteUpload () {
-//     console.log('getting to the delete action in spot');
-//     console.log('uploads is', this.get('upload'));
-//     this.sendAction('delete', this.get('upload'));
-//   },
-// },
 define("snapspot/spot/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -2901,11 +2925,11 @@ define("snapspot/spot/template", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 12,
+              "line": 11,
               "column": 0
             },
             "end": {
-              "line": 12,
+              "line": 11,
               "column": 52
             }
           },
@@ -2936,11 +2960,11 @@ define("snapspot/spot/template", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 18,
+              "line": 13,
               "column": 0
             },
             "end": {
-              "line": 18,
+              "line": 13,
               "column": 33
             }
           },
@@ -2971,11 +2995,11 @@ define("snapspot/spot/template", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 32,
+              "line": 27,
               "column": 0
             },
             "end": {
-              "line": 34,
+              "line": 29,
               "column": 0
             }
           },
@@ -3000,7 +3024,7 @@ define("snapspot/spot/template", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
           return morphs;
         },
-        statements: [["inline", "spots-gallery/single-spot", [], ["upload", ["subexpr", "@mut", [["get", "upload", ["loc", [null, [33, 37], [33, 43]]], 0, 0, 0, 0]], [], [], 0, 0], "delete", "deleteUpload"], ["loc", [null, [33, 2], [33, 67]]], 0, 0]],
+        statements: [["inline", "spots-gallery/single-spot", [], ["upload", ["subexpr", "@mut", [["get", "upload", ["loc", [null, [28, 37], [28, 43]]], 0, 0, 0, 0]], [], [], 0, 0], "delete", "deleteUpload"], ["loc", [null, [28, 2], [28, 67]]], 0, 0]],
         locals: ["upload"],
         templates: []
       };
@@ -3015,7 +3039,7 @@ define("snapspot/spot/template", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 36,
+            "line": 31,
             "column": 0
           }
         },
@@ -3067,17 +3091,13 @@ define("snapspot/spot/template", ["exports"], function (exports) {
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("br");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n\n");
+        var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
+        var el1 = dom.createTextNode(" ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("br");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createComment(" {{#link-to 'sign-up'}}Sign Up to Add Your Photo{{/link-to}}\n< br/> ");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
@@ -3118,11 +3138,11 @@ define("snapspot/spot/template", ["exports"], function (exports) {
         morphs[4] = dom.createMorphAt(fragment, 10, 10, contextualElement);
         morphs[5] = dom.createMorphAt(fragment, 12, 12, contextualElement);
         morphs[6] = dom.createMorphAt(fragment, 19, 19, contextualElement);
-        morphs[7] = dom.createMorphAt(fragment, 25, 25, contextualElement);
-        morphs[8] = dom.createMorphAt(dom.childAt(fragment, [34]), 1, 1);
+        morphs[7] = dom.createMorphAt(fragment, 23, 23, contextualElement);
+        morphs[8] = dom.createMorphAt(dom.childAt(fragment, [32]), 1, 1);
         return morphs;
       },
-      statements: [["content", "model.name", ["loc", [null, [2, 4], [2, 18]]], 0, 0, 0, 0], ["content", "model.description", ["loc", [null, [3, 4], [3, 25]]], 0, 0, 0, 0], ["content", "model.address", ["loc", [null, [4, 0], [4, 17]]], 0, 0, 0, 0], ["content", "model.city", ["loc", [null, [5, 0], [5, 14]]], 0, 0, 0, 0], ["content", "model.state", ["loc", [null, [6, 0], [6, 15]]], 0, 0, 0, 0], ["content", "model.zip", ["loc", [null, [7, 0], [7, 13]]], 0, 0, 0, 0], ["block", "link-to", ["spot-photo-upload", ["get", "model", ["loc", [null, [12, 31], [12, 36]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [12, 0], [12, 64]]]], ["block", "link-to", ["spots"], [], 1, null, ["loc", [null, [18, 0], [18, 45]]]], ["block", "each", [["get", "model.uploads", ["loc", [null, [32, 8], [32, 21]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [32, 0], [34, 9]]]]],
+      statements: [["content", "model.name", ["loc", [null, [2, 4], [2, 18]]], 0, 0, 0, 0], ["content", "model.description", ["loc", [null, [3, 4], [3, 25]]], 0, 0, 0, 0], ["content", "model.address", ["loc", [null, [4, 0], [4, 17]]], 0, 0, 0, 0], ["content", "model.city", ["loc", [null, [5, 0], [5, 14]]], 0, 0, 0, 0], ["content", "model.state", ["loc", [null, [6, 0], [6, 15]]], 0, 0, 0, 0], ["content", "model.zip", ["loc", [null, [7, 0], [7, 13]]], 0, 0, 0, 0], ["block", "link-to", ["spot-photo-upload", ["get", "model", ["loc", [null, [11, 31], [11, 36]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [11, 0], [11, 64]]]], ["block", "link-to", ["spots"], [], 1, null, ["loc", [null, [13, 0], [13, 45]]]], ["block", "each", [["get", "model.uploads", ["loc", [null, [27, 8], [27, 21]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [27, 0], [29, 9]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -3321,19 +3341,20 @@ define('snapspot/upload/route', ['exports', 'ember'], function (exports, _ember)
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
       return this.get('store').findRecord('upload', params.upload_id);
+    },
+
+    actions: {
+      deleteUpload: function deleteUpload(data) {
+        var upload = data;
+        console.log('getting to destroyRecord');
+        console.log(upload);
+        upload.destroyRecord();
+        this.refresh();
+      }
     }
 
   });
 });
-//   actions: {
-//     deleteUpload (data) {
-//       let upload = data;
-//       console.log('getting to destroyRecord');
-//       console.log(upload);
-//       upload.destroyRecord();
-//       this.refresh();
-//   },
-// },
 define("snapspot/upload/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -3793,7 +3814,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+343c6a7b"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+f25fe853"});
 }
 
 /* jshint ignore:end */
