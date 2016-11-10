@@ -8,8 +8,8 @@ export default Ember.Route.extend({
   actions: {
     deletePhoto (data) {
       let photo = data;
-      console.log('getting to destroyRecord');
-      console.log(photo);
+      // console.log('getting to destroyRecord');
+      // console.log(photo);
       photo.destroyRecord();
       this.transitionTo('photos');
   },

@@ -8,6 +8,6 @@ export default Model.extend({
   user: belongsTo('user'),
   image_url: attr('string'),
   spots: hasMany('spot'),
-  photos: hasMany('photo'),
+  // photos: hasMany('photo'),
   editable: attr('boolean'),
 });

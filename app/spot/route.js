@@ -8,8 +8,8 @@ export default Ember.Route.extend({
 actions: {
   deleteUpload (data) {
     let upload = data;
-    console.log('getting to destroyRecord');
-    console.log(upload);
+    // console.log('getting to destroyRecord');
+    // console.log(upload);
     upload.destroyRecord();
     this.refresh();
 },

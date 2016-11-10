@@ -1260,8 +1260,8 @@ define('snapspot/components/new-upload-form/component', ['exports', 'ember'], fu
     actions: {
       create: function create() {
         var newUpload = new FormData(document.getElementById('new-upload-form')); // Ember jQuery to find the form by it's id.
-        console.log('In create image is', newUpload.image);
-        console.log('In create spot id is', newUpload.spot_id);
+        // console.log('In create image is', newUpload.image);
+        // console.log('In create spot id is', newUpload.spot_id);
         this.sendAction('create', newUpload); // Grabs the newMovie object which has been converted into FormData and sends it up to the route template
         this.set('newUpload', null); // Resets the newMovie Object
       }
@@ -1766,8 +1766,8 @@ define('snapspot/components/spots-gallery/single-spot/component', ['exports', 'e
     upload: {},
     actions: {
       'delete': function _delete() {
-        console.log('getting to the delete action in component');
-        console.log(this.get('upload'));
+        // console.log('getting to the delete action in component');
+        // console.log(this.get('upload'));
         this.sendAction('delete', this.get('upload'));
       }
     }
@@ -2508,7 +2508,7 @@ define('snapspot/new-upload/route', ['exports', 'ember'], function (exports, _em
       createUpload: function createUpload(newUpload) {
         var _this = this;
 
-        console.log(newUpload); // We can console log the newMovie object to ensure it is being passed through
+        //  console.log(newUpload); // We can console log the newMovie object to ensure it is being passed through
         return this.get('uploadImage').newUploadService(newUpload) // This will use the uploads service, which gives us access to the `newMovieUpload` function.
         // .then(() => this.get('uploadImage').newPhotoService(newUpload))
         // .then(() => this.get('uploadImage').newSpotImageService(newUpload))
@@ -2652,8 +2652,8 @@ define('snapspot/photos/route', ['exports', 'ember'], function (exports, _ember)
     actions: {
       deletePhoto: function deletePhoto(data) {
         var photo = data;
-        console.log('getting to destroyRecord');
-        console.log(photo);
+        // console.log('getting to destroyRecord');
+        // console.log(photo);
         photo.destroyRecord();
         this.transitionTo('photos');
       }
@@ -3132,8 +3132,8 @@ define('snapspot/spot/route', ['exports', 'ember'], function (exports, _ember) {
     actions: {
       deleteUpload: function deleteUpload(data) {
         var upload = data;
-        console.log('getting to destroyRecord');
-        console.log(upload);
+        // console.log('getting to destroyRecord');
+        // console.log(upload);
         upload.destroyRecord();
         this.refresh();
       }
@@ -3480,7 +3480,7 @@ define('snapspot/upload/model', ['exports', 'ember-data/model', 'ember-data/attr
     user: (0, _emberDataRelationships.belongsTo)('user'),
     image_url: (0, _emberDataAttr['default'])('string'),
     spots: (0, _emberDataRelationships.hasMany)('spot'),
-    photos: (0, _emberDataRelationships.hasMany)('photo'),
+    // photos: hasMany('photo'),
     editable: (0, _emberDataAttr['default'])('boolean')
   });
 });
@@ -3961,7 +3961,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+a571236a"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+cbe7ac1d"});
 }
 
 /* jshint ignore:end */

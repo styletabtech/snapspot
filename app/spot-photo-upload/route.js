@@ -20,7 +20,6 @@ export default Ember.Route.extend({
         // get spot to add to
         // this.set('photo.spot', spot);
 
-
         // fire createRecord to spot
         // let photo = this.get('store').createRecord('photo', this.get('photo'));
         // return photo.save()
