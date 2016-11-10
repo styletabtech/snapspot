@@ -51,7 +51,7 @@ module.exports = function (environment) {
   if (environment === 'production') {
     ENV.rootURL = '/snapspot';
     ENV.locationType = 'hash';
-    ENV.apiHost = 'https://snapshot-app.herokuapp.com/';
+    ENV.apiHost = 'https://snapshot-app.herokuapp.com';
   }
 
   return ENV;
