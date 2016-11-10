@@ -5,14 +5,14 @@ export default Ember.Route.extend({
     return this.get('store').findRecord('upload', params.upload_id);
   },
 
-  actions: {
-    deleteUpload (data) {
-      let upload = data;
-      console.log('getting to destroyRecord');
-      console.log(upload);
-      upload.destroyRecord();
-      this.refresh();
-  },
-},
+//   actions: {
+//     deleteUpload (data) {
+//       let upload = data;
+//       console.log('getting to destroyRecord');
+//       console.log(upload);
+//       upload.destroyRecord();
+//       this.refresh();
+//   },
+// },
 
 });

@@ -622,41 +622,6 @@ define('snapspot/components/my-application/component', ['exports', 'ember'], fun
 define("snapspot/components/my-application/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
-      var child0 = (function () {
-        return {
-          meta: {
-            "revision": "Ember@2.8.3",
-            "loc": {
-              "source": null,
-              "start": {
-                "line": 8,
-                "column": 12
-              },
-              "end": {
-                "line": 8,
-                "column": 37
-              }
-            },
-            "moduleName": "snapspot/components/my-application/template.hbs"
-          },
-          isEmpty: false,
-          arity: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          buildFragment: function buildFragment(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("Users");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          buildRenderNodes: function buildRenderNodes() {
-            return [];
-          },
-          statements: [],
-          locals: [],
-          templates: []
-        };
-      })();
       return {
         meta: {
           "revision": "Ember@2.8.3",
@@ -681,9 +646,7 @@ define("snapspot/components/my-application/template", ["exports"], function (exp
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("        ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createElement("li");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
+          var el1 = dom.createComment(" <li>{{#link-to \"users\"}}Users{{/link-to}}</li> ");
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n        ");
           dom.appendChild(el0, el1);
@@ -693,14 +656,12 @@ define("snapspot/components/my-application/template", ["exports"], function (exp
           dom.appendChild(el0, el1);
           return el0;
         },
-        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var morphs = new Array(1);
-          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
-          return morphs;
+        buildRenderNodes: function buildRenderNodes() {
+          return [];
         },
-        statements: [["block", "link-to", ["users"], [], 0, null, ["loc", [null, [8, 12], [8, 49]]]]],
+        statements: [],
         locals: [],
-        templates: [child0]
+        templates: []
       };
     })();
     var child1 = (function () {
@@ -1522,20 +1483,21 @@ define('snapspot/components/photo-lib/component', ['exports', 'ember'], function
     }
   });
 });
-define('snapspot/components/photo-lib/my-photo/component', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Component.extend({
-    tagName: 'li',
-
-    photo: {},
-    actions: {
-      'delete': function _delete() {
-        console.log('getting to the delete action in my-photo component');
-        console.log(this.get('photo'));
-        this.sendAction('delete', this.get('photo'));
-      }
-    }
-  });
-});
+define("snapspot/components/photo-lib/my-photo/component", ["exports"], function (exports) {});
+// import Ember from 'ember';
+//
+// export default Ember.Component.extend({
+//   tagName: 'li',
+//
+//   photo: {},
+//   actions: {
+//     delete () {
+//       console.log('getting to the delete action in my-photo component');
+//       console.log(this.get('photo'));
+//       this.sendAction('delete', this.get('photo'));
+//     },
+//   },
+// });
 define("snapspot/components/photo-lib/my-photo/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -1560,34 +1522,16 @@ define("snapspot/components/photo-lib/my-photo/template", ["exports"], function 
       hasRendered: false,
       buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("img");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("button");
-        dom.setAttribute(el1, "class", "btn btn-xs btn-fancy");
-        var el2 = dom.createTextNode("\n  Delete\n");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment(" {{photo.file_name}}\n<img src=\"{{photo.photo_upload_url}}\">\n<button class=\"btn btn-xs btn-fancy\" {{action 'delete'}}>\n  Delete\n</button> ");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
-      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element0 = dom.childAt(fragment, [2]);
-        var element1 = dom.childAt(fragment, [4]);
-        var morphs = new Array(3);
-        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-        morphs[1] = dom.createAttrMorph(element0, 'src');
-        morphs[2] = dom.createElementMorph(element1);
-        dom.insertBoundary(fragment, 0);
-        return morphs;
+      buildRenderNodes: function buildRenderNodes() {
+        return [];
       },
-      statements: [["content", "photo.file_name", ["loc", [null, [1, 0], [1, 19]]], 0, 0, 0, 0], ["attribute", "src", ["concat", [["get", "photo.photo_upload_url", ["loc", [null, [2, 12], [2, 34]]], 0, 0, 0, 0]], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [3, 37], [3, 56]]], 0, 0]],
+      statements: [],
       locals: [],
       templates: []
     };
@@ -1821,7 +1765,7 @@ define('snapspot/components/spots-gallery/single-spot/component', ['exports', 'e
       'delete': function _delete() {
         console.log('getting to the delete action in component');
         console.log(this.get('upload'));
-        this.sendAction('delete', this.get('spot'));
+        this.sendAction('delete', this.get('upload'));
       }
     }
   });
@@ -1838,7 +1782,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 16,
             "column": 0
           }
         },
@@ -1856,7 +1800,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("img");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n ");
+        var el1 = dom.createTextNode("\n\n ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("button");
         dom.setAttribute(el1, "class", "btn btn-xs btn-fancy");
@@ -1875,7 +1819,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         morphs[1] = dom.createElementMorph(element1);
         return morphs;
       },
-      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [11, 12], [11, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [12, 38], [12, 57]]], 0, 0]],
+      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [11, 12], [11, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["delete"], [], ["loc", [null, [13, 38], [13, 57]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -1969,39 +1913,7 @@ define("snapspot/index/template", ["exports"], function (exports) {
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n\n");
         dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("Boston");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("NYC");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("DC");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("Miami");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("LA");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("section");
-        var el2 = dom.createTextNode("Chicago");
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment(" <section>Boston</section>\n<section>NYC</section>\n<section>DC</section>\n<section>Miami</section>\n<section>LA</section>\n<section>Chicago</section> ");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
@@ -2973,14 +2885,24 @@ define('snapspot/spot/route', ['exports', 'ember'], function (exports, _ember) {
     },
 
     actions: {
-      'delete': function _delete() {
-        console.log('getting to the delete action in spot');
-        console.log('uploads is', this.get('upload'));
-        this.sendAction('delete', this.get('upload'));
+      deleteUpload: function deleteUpload(data) {
+        var upload = data;
+        console.log('getting to destroyRecord');
+        console.log(upload);
+        upload.destroyRecord();
+        this.refresh();
       }
     }
   });
 });
+//
+// actions: {
+//   deleteUpload () {
+//     console.log('getting to the delete action in spot');
+//     console.log('uploads is', this.get('upload'));
+//     this.sendAction('delete', this.get('upload'));
+//   },
+// },
 define("snapspot/spot/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -3406,20 +3328,19 @@ define('snapspot/upload/route', ['exports', 'ember'], function (exports, _ember)
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
       return this.get('store').findRecord('upload', params.upload_id);
-    },
-
-    actions: {
-      deleteUpload: function deleteUpload(data) {
-        var upload = data;
-        console.log('getting to destroyRecord');
-        console.log(upload);
-        upload.destroyRecord();
-        this.refresh();
-      }
     }
 
   });
 });
+//   actions: {
+//     deleteUpload (data) {
+//       let upload = data;
+//       console.log('getting to destroyRecord');
+//       console.log(upload);
+//       upload.destroyRecord();
+//       this.refresh();
+//   },
+// },
 define("snapspot/upload/template", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     return {
@@ -3879,7 +3800,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+952d04de"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+343c6a7b"});
 }
 
 /* jshint ignore:end */

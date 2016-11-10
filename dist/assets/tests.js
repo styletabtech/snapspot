@@ -213,7 +213,7 @@ define('snapspot/tests/components/spots-gallery/single-spot/component.jshint', [
   QUnit.module('JSHint | components/spots-gallery/single-spot/component.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/spots-gallery/single-spot/component.js should pass jshint.');
+    assert.ok(false, 'components/spots-gallery/single-spot/component.js should pass jshint.\ncomponents/spots-gallery/single-spot/component.js: line 5, col 3, Expected \'}\' to match \'{\' from line 3 and instead saw \'tagName\'.\ncomponents/spots-gallery/single-spot/component.js: line 5, col 10, Expected \')\' and instead saw \':\'.\ncomponents/spots-gallery/single-spot/component.js: line 5, col 11, Missing semicolon.\ncomponents/spots-gallery/single-spot/component.js: line 7, col 3, Expected an assignment or function call and instead saw an expression.\ncomponents/spots-gallery/single-spot/component.js: line 7, col 9, Missing semicolon.\ncomponents/spots-gallery/single-spot/component.js: line 7, col 3, Unrecoverable syntax error. (43% scanned).\n\n6 errors');
   });
 });
 define('snapspot/tests/helpers/destroy-app', ['exports', 'ember'], function (exports, _ember) {
