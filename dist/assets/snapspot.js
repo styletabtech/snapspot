@@ -2123,8 +2123,72 @@ define('snapspot/flash/object', ['exports', 'ember-cli-flash/flash/object'], fun
     }
   });
 });
+define('snapspot/helpers/await', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersAwait['default'];
+    }
+  });
+  Object.defineProperty(exports, 'await', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersAwait.await;
+    }
+  });
+});
+define('snapspot/helpers/is-fulfilled', ['exports', 'ember-promise-helpers/helpers/is-fulfilled'], function (exports, _emberPromiseHelpersHelpersIsFulfilled) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsFulfilled['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isFulfilled', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsFulfilled.isFulfilled;
+    }
+  });
+});
+define('snapspot/helpers/is-pending', ['exports', 'ember-promise-helpers/helpers/is-pending'], function (exports, _emberPromiseHelpersHelpersIsPending) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsPending['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isPending', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsPending.isPending;
+    }
+  });
+});
+define('snapspot/helpers/is-rejected', ['exports', 'ember-promise-helpers/helpers/is-rejected'], function (exports, _emberPromiseHelpersHelpersIsRejected) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsRejected['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isRejected', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsRejected.isRejected;
+    }
+  });
+});
 define('snapspot/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
+});
+define('snapspot/helpers/promise-rejected-reason', ['exports', 'ember-promise-helpers/helpers/promise-rejected-reason'], function (exports, _emberPromiseHelpersHelpersPromiseRejectedReason) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersPromiseRejectedReason['default'];
+    }
+  });
 });
 define('snapspot/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
@@ -3961,7 +4025,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+cbe7ac1d"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+f660d4d6"});
 }
 
 /* jshint ignore:end */
