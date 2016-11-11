@@ -7,10 +7,9 @@
 {{spot.zip}}
 {{spot.tag}} -->
 
-
  <img src={{upload.image_url}}>
 
-{{#if upload.editable}}
+{{#if (await isEditable)}}
  <button class="btn btn-xs btn-fancy" {{action 'delete'}}>
    Delete
  </button>

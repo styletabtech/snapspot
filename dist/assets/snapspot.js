@@ -1763,7 +1763,17 @@ define('snapspot/components/spots-gallery/single-spot/component', ['exports', 'e
 
     tagName: 'p',
 
-    upload: {},
+    isEditable: _ember['default'].computed('auth.credentials.id', 'upload.user.id', {
+      get: function get() {
+        var uploadUserId = parseInt(this.get('upload.user.id'));
+        var authUserId = this.get('auth.credentials.id');
+
+        return uploadUserId === authUserId;
+      }
+    }),
+
+    auth: _ember['default'].inject.service(),
+
     actions: {
       'delete': function _delete() {
         // console.log('getting to the delete action in component');
@@ -1782,11 +1792,11 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
           "loc": {
             "source": null,
             "start": {
-              "line": 13,
+              "line": 12,
               "column": 0
             },
             "end": {
-              "line": 17,
+              "line": 16,
               "column": 0
             }
           },
@@ -1815,7 +1825,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
           morphs[0] = dom.createElementMorph(element0);
           return morphs;
         },
-        statements: [["element", "action", ["delete"], [], ["loc", [null, [14, 38], [14, 57]]], 0, 0]],
+        statements: [["element", "action", ["delete"], [], ["loc", [null, [13, 38], [13, 57]]], 0, 0]],
         locals: [],
         templates: []
       };
@@ -1830,7 +1840,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
             "column": 0
           },
           "end": {
-            "line": 18,
+            "line": 17,
             "column": 0
           }
         },
@@ -1844,7 +1854,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createComment(" <h2>{{spot.name}}</h2>\n<h5>{{spot.description}}</h5>\n< br/>\n{{spot.address}}\n{{spot.city}}\n{{spot.state}}\n{{spot.zip}}\n{{spot.tag}} ");
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n\n ");
+        var el1 = dom.createTextNode("\n\n ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("img");
         dom.appendChild(el0, el1);
@@ -1862,7 +1872,7 @@ define("snapspot/components/spots-gallery/single-spot/template", ["exports"], fu
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [11, 12], [11, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["block", "if", [["get", "upload.editable", ["loc", [null, [13, 6], [13, 21]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [13, 0], [17, 7]]]]],
+      statements: [["attribute", "src", ["get", "upload.image_url", ["loc", [null, [10, 12], [10, 28]]], 0, 0, 0, 0], 0, 0, 0, 0], ["block", "if", [["subexpr", "await", [["get", "isEditable", ["loc", [null, [12, 13], [12, 23]]], 0, 0, 0, 0]], [], ["loc", [null, [12, 6], [12, 24]]], 0, 0]], [], 0, null, ["loc", [null, [12, 0], [16, 7]]]]],
       locals: [],
       templates: [child0]
     };
@@ -2123,8 +2133,72 @@ define('snapspot/flash/object', ['exports', 'ember-cli-flash/flash/object'], fun
     }
   });
 });
+define('snapspot/helpers/await', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersAwait['default'];
+    }
+  });
+  Object.defineProperty(exports, 'await', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersAwait.await;
+    }
+  });
+});
+define('snapspot/helpers/is-fulfilled', ['exports', 'ember-promise-helpers/helpers/is-fulfilled'], function (exports, _emberPromiseHelpersHelpersIsFulfilled) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsFulfilled['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isFulfilled', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsFulfilled.isFulfilled;
+    }
+  });
+});
+define('snapspot/helpers/is-pending', ['exports', 'ember-promise-helpers/helpers/is-pending'], function (exports, _emberPromiseHelpersHelpersIsPending) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsPending['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isPending', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsPending.isPending;
+    }
+  });
+});
+define('snapspot/helpers/is-rejected', ['exports', 'ember-promise-helpers/helpers/is-rejected'], function (exports, _emberPromiseHelpersHelpersIsRejected) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsRejected['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isRejected', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersIsRejected.isRejected;
+    }
+  });
+});
 define('snapspot/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
+});
+define('snapspot/helpers/promise-rejected-reason', ['exports', 'ember-promise-helpers/helpers/promise-rejected-reason'], function (exports, _emberPromiseHelpersHelpersPromiseRejectedReason) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberPromiseHelpersHelpersPromiseRejectedReason['default'];
+    }
+  });
 });
 define('snapspot/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
@@ -3475,16 +3549,14 @@ define('snapspot/upload-image/service', ['exports', 'ember'], function (exports,
   });
 });
 // The FormData object which we have called `newMovie`
-define('snapspot/upload/model', ['exports', 'ember-data/model', 'ember-data/attr', 'ember-data/relationships'], function (exports, _emberDataModel, _emberDataAttr, _emberDataRelationships) {
-  exports['default'] = _emberDataModel['default'].extend({
-    user: (0, _emberDataRelationships.belongsTo)('user'),
-    image_url: (0, _emberDataAttr['default'])('string'),
-    spots: (0, _emberDataRelationships.hasMany)('spot'),
-    // photos: hasMany('photo'),
-    editable: (0, _emberDataAttr['default'])('boolean')
+define('snapspot/upload/model', ['exports', 'ember-data'], function (exports, _emberData) {
+  exports['default'] = _emberData['default'].Model.extend({
+    user: _emberData['default'].belongsTo('user'),
+    image_url: _emberData['default'].attr('string'),
+    spots: _emberData['default'].hasMany('spot')
   });
 });
-// import DS from 'ember-data';
+// photos: hasMany('photo'),
 define('snapspot/upload/route', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model(params) {
@@ -3961,7 +4033,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+cbe7ac1d"});
+  require("snapspot/app")["default"].create({"name":"snapspot","version":"0.0.0+f660d4d6"});
 }
 
 /* jshint ignore:end */

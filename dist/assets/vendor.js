@@ -88066,6 +88066,355 @@ define('ember-new-computed/utils/can-use-new-syntax', ['exports', 'ember'], func
 
   exports['default'] = supportsSetterGetter;
 });
+define('ember-promise-helpers/helpers/await', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var _slicedToArray = (function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+        for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;_e = err;
+      } finally {
+        try {
+          if (!_n && _i['return']) _i['return']();
+        } finally {
+          if (_d) throw _e;
+        }
+      }return _arr;
+    }return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if (Symbol.iterator in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError('Invalid attempt to destructure non-iterable instance');
+      }
+    };
+  })();
+
+  var RSVP = _ember['default'].RSVP;
+  var Promise = RSVP.Promise;
+
+  exports['default'] = _ember['default'].Helper.extend({
+    /**
+     * @property valueBeforeSettled
+     * @default null
+     *
+     * This is the value that gets returned synchronously as the helper's return
+     * value before the promise is settled. For example `{{async promise}}` will return
+     * null, before the promise is resolved or rejected.
+    */
+    valueBeforeSettled: null,
+
+    /**
+     * @method compute
+     * @public
+     * @param params Array a list of arguments passed to the Helper.
+     * @param hash Object a list of configuration options passed to the helper.
+     * This parameter is currently unused by Await.
+    */
+    compute: function compute(_ref, hash) {
+      var _this = this;
+
+      var _ref2 = _slicedToArray(_ref, 1);
+
+      var maybePromise = _ref2[0];
+
+      if (!maybePromise || typeof maybePromise.then !== 'function') {
+        return maybePromise;
+      }
+
+      return this.ensureLatestPromise(maybePromise, function (promise) {
+        promise.then(function (value) {
+          _this.setValue(value, maybePromise);
+        })['catch'](function () {
+          _this.setValue(null, maybePromise);
+        });
+      });
+    },
+
+    /**
+     * @method ensureLatestPromise
+     * @public
+     * @param promise Promise the new promise coming
+     * @param callback Function function to be called with a wrapped promise
+     *
+     * Method to set the latest promise. This gets called by `compute` (which in
+     * turn gets called by `recompute`). If the promise being passed in is the
+     * same as before, then just return the value to `compute`. Otherwise, call
+     * the callback so the user can call `then`, `catch`, or `finally` on the
+     * promise to update the value using `setValue` later.
+    */
+    ensureLatestPromise: function ensureLatestPromise(promise, callback) {
+      if (this._wasSettled && promise === this._promise) {
+        return this._value;
+      } else {
+        this._unsettle();
+      }
+
+      this._promise = promise;
+
+      callback.call(this, Promise.resolve(promise));
+      return this.get('valueBeforeSettled');
+    },
+
+    /**
+     * @method _settle
+     * @private
+    */
+    _settle: function _settle(promise) {
+      if (this.allowUpdates(promise)) {
+        this._wasSettled = true;
+        this.recompute();
+      }
+    },
+
+    /**
+     * @private
+     * @method _unsettle
+     *
+     * Resets the promise to null and calls recompute. Designed to be used
+     * when a new promise is passed to the `compute` method. This would happen
+     * when the value changes in Handlebars.
+    */
+    _unsettle: function _unsettle() {
+      this._wasSettled = false;
+      this._promise = null;
+    },
+
+    /**
+     * @method setValue
+     * @public
+     * @param value Any the value to return to the helper
+     * @param promise Promise the promise the `setValue` call is coming from.
+     *
+     * `setValue` is how you should set the value to be returned to the helper
+     * in the app. It exists to prevent race conditions between promises.
+     * For example, you may have two promises:
+     *
+     * ```javascript
+     * let promise1 = new Ember.RSVP.Promise((resolve, reject) => {resolve("hello");});
+     * let promise2 = new Ember.RSVP.Promise((resolve, reject) => {(resolve("goodbye")});
+     * ```
+     *
+     * And a template:
+     *
+     * ```handlebars
+     * {{await promise}}
+     * ```
+     *
+     * If you set the value of `promise` to be `promise1` via your component,
+     * controller, or route, when the promise resolves, it will render the value
+     * of `promise1`, which is "hello".
+     *
+     * If you set the avlue of `promise` to `promise2`, you would see "goodbye".
+     *
+     * But what happens if `promise1` resolves asynchronously, e.g., using `Ember.run.later`?
+     *
+     * ```javascript
+     * Ember.run.later(function() {
+     *  resolve("hello");
+     * }, 200);
+     * ```
+     *
+     * Even though `promise2` already resolved with "goodbye", the template would
+     * render "hello", which is not the intended behavior. So, `setValue` makes you pass
+     * the promise so the internal book-keeping can ensure the last-set promise always wins.
+    */
+    setValue: function setValue(value, promise) {
+      if (this.allowUpdates(promise)) {
+        this._value = value;
+        this._settle(promise);
+      }
+    },
+
+    allowUpdates: function allowUpdates(promise) {
+      return this._promise === promise;
+    }
+  });
+});
+define('ember-promise-helpers/helpers/is-fulfilled', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  'use strict';
+
+  exports['default'] = _emberPromiseHelpersHelpersAwait['default'].extend({
+    compute: function compute(params, hash) {
+      var _this = this;
+
+      var maybePromise = params[0];
+
+      return this.ensureLatestPromise(maybePromise, function (promise) {
+        promise.then(function () {
+          _this.setValue(true, maybePromise);
+        })['catch'](function () {
+          _this.setValue(false, maybePromise);
+        });
+      });
+    }
+  });
+});
+define('ember-promise-helpers/helpers/is-pending', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  'use strict';
+
+  exports['default'] = _emberPromiseHelpersHelpersAwait['default'].extend({
+    valueBeforeSettled: true,
+
+    compute: function compute(params, hash) {
+      var _this = this;
+
+      var maybePromise = params[0];
+
+      return this.ensureLatestPromise(maybePromise, function (promise) {
+        promise['catch'](function () {})['finally'](function () {
+          _this.setValue(false, maybePromise);
+        });
+      });
+    }
+  });
+});
+define('ember-promise-helpers/helpers/is-rejected', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  'use strict';
+
+  exports['default'] = _emberPromiseHelpersHelpersAwait['default'].extend({
+    compute: function compute(params, hash) {
+      var _this = this;
+
+      var maybePromise = params[0];
+
+      return this.ensureLatestPromise(maybePromise, function (promise) {
+        promise.then(function () {
+          _this.setValue(false, maybePromise);
+        })['catch'](function () {
+          _this.setValue(true, maybePromise);
+        });
+      });
+    }
+  });
+});
+define('ember-promise-helpers/helpers/promise-rejected-reason', ['exports', 'ember-promise-helpers/helpers/await'], function (exports, _emberPromiseHelpersHelpersAwait) {
+  'use strict';
+
+  exports['default'] = _emberPromiseHelpersHelpersAwait['default'].extend({
+    compute: function compute(params, hash) {
+      var _this = this;
+
+      var maybePromise = params[0];
+      return this.ensureLatestPromise(maybePromise, function (promise) {
+        promise.then(function () {
+          _this.setValue(null, maybePromise);
+        })['catch'](function (reason) {
+          _this.setValue(reason, maybePromise);
+        });
+      });
+    }
+  });
+});
+define('ember-promise-helpers/promise-state', ['exports', 'ember'], function (exports, _ember) {
+  'use strict';
+
+  var _createClass = (function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  })();
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError('Cannot call a class as a function');
+    }
+  }
+
+  var RSVP = _ember['default'].RSVP;
+  var Promise = RSVP.Promise;
+
+  var DEFAULT_STATE = {
+    isPending: true,
+    isFulfilled: false,
+    isRejected: false,
+    error: null,
+    value: null
+  };
+
+  var PromiseState = (function () {
+    function PromiseState(watchedPromise) {
+      _classCallCheck(this, PromiseState);
+
+      this._watchedPromise = Promise.resolve(watchedPromise);
+      this._deferred = RSVP.defer();
+      this._promise = this.deferred.promise;
+      this._setWatchers();
+      this.setState(DEFAULT_STATE);
+    }
+
+    _createClass(PromiseState, [{
+      key: '_setWatchers',
+      value: function _setWatchers() {
+        var _this = this;
+
+        this._watchedPromise.then(function (value) {
+          _this._resolve(value);
+        })['catch'](function (error) {
+          _this._reject(error);
+          return Promise.reject(error);
+        })['finally'](function () {
+          _this._settle();
+        });
+      }
+    }, {
+      key: '_resolve',
+      value: function _resolve(value) {
+        var newState = {
+          isFulfilled: true,
+          isRejected: false,
+          value: value
+        };
+        return this._deferred.resolve(value);
+      }
+    }, {
+      key: '_reject',
+      value: function _reject(value) {
+        return this._deferred.reject(value);
+      }
+    }, {
+      key: '_settle',
+      value: function _settle() {
+        this.setState({
+          isPending: false
+        });
+
+        this._resolve;
+      }
+    }]);
+
+    return PromiseState;
+  })();
+
+  function merge() {
+    var mergedHash = {};
+
+    for (var _len = arguments.length, objects = Array(_len), _key = 0; _key < _len; _key++) {
+      objects[_key] = arguments[_key];
+    }
+
+    for (var i = 0; i < objects.length; i++) {
+      var object = objects[i];
+      var keys = Object.keys(object);
+
+      for (var _i = 0; _i < keys.length; _i++) {
+        var key = keys[_i];
+        mergedHash[key] = object[key];
+      }
+    }
+
+    return mergedHash;
+  }
+});
 define('ember-resolver/container-debug-adapter', ['exports', 'ember', 'ember-resolver/utils/module-registry'], function (exports, _ember, _emberResolverUtilsModuleRegistry) {
   'use strict';
 
