@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://use.fontawesome.com/0ade3f86cc.css');
+
+$montserrat: 'Montserrat', sans-serif;
+
+
+body {
+  font-family: $montserrat;
+}
+
+.navbar-default {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.logo {
+  font-size: 70px;
+  letter-spacing: 20px;
+}
+
+.cities {
+  font-size: 30px;
+  letter-spacing: 5px;
+  line-height: 20px;
+}
+
+@media (min-width: 0px) and (max-width: 369px) {
+  .logo {
+    font-size: 20px;
+    letter-spacing: 10px;
+  }
+
+  .cities {
+    font-size: 18px;
+    letter-spacing: 5px;
+    // line-height: 10px;
+    text-align: center;
+  }
+
+  .city-names {
+    padding-top: 7%;
+  }
+}
+
+
+@media (min-width: 370px) and (max-width: 601px) {
+  .logo {
+    font-size: 45px;
+    letter-spacing: 5px;
+  }
+
+  .cities {
+    font-size: 18px;
+    letter-spacing: 5px;
+    line-height: 10px;
+    text-align: center;
+  }
+  .city-names {
+    padding-top: 7%;
+    padding-bottom: 10%;
+
+  }
+}
+
+@media (min-width: 602px) {
+  .cities {
+    height: 500px;
+    overflow: auto;
+    // width: 100%;
+}
+
+  .city-names {
+    padding-top: 20%;
+
+  }
+
+  .cities-left {
+    float: left;
+    height: 500px;
+    overflow: auto;
+    width: 50%;
+  }
+
+  .cities-right {
+    float: right;
+    height: 500px;
+    overflow: auto;
+    text-align: right;
+    width: 50%;
+  }
+}
