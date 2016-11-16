@@ -22,6 +22,12 @@ Router.map(function () {
   this.route('user', { path: '/users/:user_id' });
   this.route('new-upload');
   this.route('spot-photo-upload', { path: '/spots/:spot_id/upload'});
+  this.route('boston', { path: '/spots/boston'});
+  this.route('new-york-city', { path: '/spots/new-york-city'});
+  this.route('dc', { path: '/spots/dc'});
+  this.route('miami', { path: '/spots/miami'});
+  this.route('los-angeles', { path: '/spots/los-angeles'});
+  this.route('chicago', { path: '/spots/chicago'});
 });
 
 export default Router;
