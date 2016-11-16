@@ -10,7 +10,6 @@
  <img src={{upload.image_url}}>
 
 {{#if (await isEditable)}}
- <button class="btn btn-xs btn-fancy" {{action 'delete'}}>
-   Delete
+ <button class="btn btn-s btn-fancy delete-button" {{action 'delete'}}><i class="fa fa-trash" aria-hidden="true"></i>
  </button>
 {{/if}}

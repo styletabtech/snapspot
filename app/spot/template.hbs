@@ -10,22 +10,13 @@
 <h5 class="spot-desc">{{model.description}}</h5>
 </article>
 
-<!-- {{spot.tag}}  -->
 < br/>< br/>
 
 
-  <!-- <img src={{upload.image_url}}> -->
-
-<!-- {{#each model.uploads as |upload|}}
-
-  <img src={{upload.image_url}}><button class="btn btn-xs btn-fancy" {{action 'delete' upload}}>
-    Delete
-  </button>
-{{/each}} -->
 
 {{spots-gallery spot=model}}
 
-<ul>
+<ul class="uploads-list">
 {{#each model.uploads as |upload|}}
   {{spots-gallery/single-spot upload=upload delete='deleteUpload'}}
 {{/each}}
