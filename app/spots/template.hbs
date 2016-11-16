@@ -1,9 +1,7 @@
 
-<h2>Spots</h2>
-
-<ul>
+<ul class="all-spots">
 {{#each model as |spot|}}
-    <p>
+    <p class="spot-names">
     {{#link-to 'spot' spot}}
       {{spot.name}}
     {{/link-to}}

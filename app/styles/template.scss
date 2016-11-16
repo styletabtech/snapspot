@@ -18,18 +18,67 @@ body {
   // background-color: grey;
   box-sizing: border-box;
   display: block;
-
-
 }
 
 .cities-left {
   // background-color: pink;
   box-sizing: border-box;
-
 }
 
 .cities-right {
   // background-color: teal;
   box-sizing: border-box;
+}
+
+.all-spots {
+  background-color: grey;
+  box-sizing: border-box;
+  display: block;
+}
+
+.spot-names {
+  font-size: 20px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #777;
+  text-decoration: none;
+}
+
+.spot-info {
+  // background-color: yellow;
+  box-sizing: border-box;
+  display: block;
+  margin-top: 25px;
+}
+
+.spot-name {
+  // background-color: grey;
+  float: left;
+
+}
+
+.spot-address {
+  // background-color: pink;
+  float: right;
+  font-size: 15px;
+  margin-top: 25px;
+}
+
+.spot-desc {
+  // background-color: teal;
+  clear: both;
+  font-size: 15px;
+  padding-top: 10px;
+}
+
+.fa-map-marker {
+  font-size: 25px;
+  padding-right: 10px;
 
 }

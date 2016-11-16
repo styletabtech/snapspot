@@ -1,10 +1,15 @@
 <!-- {{spots-gallery/single-spot spot=model }} -->
-<h2>{{model.name}}</h2>
-<h5>{{model.description}}</h5>
-{{model.address}}
+
+<article class="spot-info">
+<h2 class="spot-name">{{model.name}}</h2>
+<div class="spot-address"> <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>{{model.address}}
 {{model.city}}
 {{model.state}}
 {{model.zip}}
+</div>
+<h5 class="spot-desc">{{model.description}}</h5>
+</article>
+
 <!-- {{spot.tag}}  -->
 < br/>< br/>
 
