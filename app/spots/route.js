@@ -4,4 +4,11 @@ export default Ember.Route.extend({
   model() {
     return this.get('store').findAll('spot');
   },
+  activate () {
+    Ember.$('body').addClass('welcome');
+  },
+
+deactivate () {
+  Ember.$('body').removeClass('welcome');
+}
 });
