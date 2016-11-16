@@ -5,10 +5,10 @@ export default Ember.Route.extend({
     return this.get('store').findAll('spot');
   },
   activate () {
-    Ember.$('body').addClass('welcome');
+    Ember.$('body').addClass('welcome-faded');
   },
 
-deactivate () {
-  Ember.$('body').removeClass('welcome');
+  deactivate () {
+  Ember.$('body').removeClass('welcome-faded');
 }
 });

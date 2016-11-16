@@ -9,11 +9,11 @@ export default Ember.Route.extend({
   },
 
   activate () {
-    Ember.$('body').addClass('welcome');
+    Ember.$('body').addClass('welcome-faded');
   },
 
   deactivate () {
-    Ember.$('body').removeClass('welcome');
+    Ember.$('body').removeClass('welcome-faded');
   }
 });
 

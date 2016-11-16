@@ -14,12 +14,12 @@ actions: {
     this.refresh();
 },
 },
-//
-// actions: {
-//   deleteUpload () {
-//     console.log('getting to the delete action in spot');
-//     console.log('uploads is', this.get('upload'));
-//     this.sendAction('delete', this.get('upload'));
-//   },
-// },
+
+activate () {
+  Ember.$('body').addClass('spot-background');
+},
+
+deactivate () {
+  Ember.$('body').removeClass('spot-background');
+},
 });
